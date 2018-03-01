@@ -702,6 +702,8 @@ instance.readCondition('12', 'condition name')
 **Param**: data {Object} The data to be sent as the request body.
 **Return**: schema {promise} The response object representing the completion or failure.
 
+<a name="createCondition"></a>
+
 ### [.createCondition(version, data)](https://docs.fastly.com/api/config#condition_551199dbec2271195319b675d8659226)
 
 *Create a new condition for a particular service and version.*
@@ -730,6 +732,8 @@ instance.createCondition('12', data)
 **Param**: data {Object} The data to be sent as the request body.
 **Return**: schema {promise} The response object representing the completion or failure.
 
+
+<a name="updateCondition"></a>
 
 ### [.updateCondition(version, name, data)](https://docs.fastly.com/api/config#condition_01a2c4e4b44943b541e001013b665deb)
 
