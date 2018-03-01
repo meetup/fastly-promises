@@ -11,6 +11,7 @@ class Fastly {
    */
   constructor(token, service_id) {
     this.service_id = service_id;
+    console.log('==============||||||||||||||=======');
     this.request = axios.create({
       baseURL: config.mainEntryPoint,
       timeout: 3000,
@@ -95,7 +96,7 @@ class Fastly {
   edgeCheck(url = '') {
     return this.request.get(`/content/edge_check?url=${url}`);
   }
-  
+
   /**
    * List all services.
    * @return {Promise} The response object representing the completion or failure.
@@ -103,7 +104,7 @@ class Fastly {
   readServices() {
     return this.request.get(`/service`);
   }
-  
+
   /**
    * List the versions for a particular service.
    * @return {Promise} The response object representing the completion or failure.
@@ -157,6 +158,48 @@ class Fastly {
    */
   updateBackend(version = '', name = '', data = {}) {
     return this.request.put(`/service/${this.service_id}/version/${version}/backend/${encodeURIComponent(name)}`, data);
+  }
+
+  /**
+   * List all conditions for a particular service and version.
+   * @param version {String} The current version of a service.
+   * @return {Promise} The response object representing the completion or failure.
+   */
+  readConditions(version = '') {
+    return this.request.get(`/service/${this.service_id}/version/${version}/condition`);
+  }
+
+  /**
+   * List all conditions for a particular service and version.
+   * @param version {String} The current version of a service.
+   * @param data {Object} The data to be sent as the request body.
+   * @return {Promise} The response object representing the completion or failure.
+   */
+  readCondition(version = '', name) {
+    return this.request.get(`/service/${this.service_id}/version/${version}/condition/${name}`);
+  }
+
+  /**
+   * Create a new condition for a particular service and version.
+   * @param version {String} The current version of a service.
+   * @param name {String} The name of the backend.
+   * @param data {Object} The data to be sent as the request body.
+   * @return {Promise} The response object representing the completion or failure.
+   */
+  createCondition(version = '', name = '', data) {
+    return this.request.post(`/service/${this.service_id}/version/${version}/condition`, data);
+  }
+
+  /**
+   * Update the condition for a particular service and version.
+   * @param version {String} The current version of a service.
+   * @param name {String} The name of the backend.
+   * @param data {Object} The data to be sent as the request body.
+   * @return {Promise} The response object representing the completion or failure.
+   */
+
+  updateCondition(version = '', name = '', data = {}) {
+    return this.request.put(`/service/${this.service_id}/version/${version}/condition/${name}`, data);
   }
 
   /**

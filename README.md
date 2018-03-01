@@ -16,7 +16,7 @@ The callback based [fastly](https://www.npmjs.com/package/fastly) package is sti
 
 ## Solution
 
-The `fastly-promises` package uses the promise based HTTP client [Axios](https://www.npmjs.com/package/axios) to perform requests to the [Fastly](https://docs.fastly.com/api/) API. [Axios](https://www.npmjs.com/package/axios) supports the native JavaScript [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) API and automatically transforms the data into JSON. Each `fastly-promises` API method returns a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) which represents either the completion or failure of the request. 
+The `fastly-promises` package uses the promise based HTTP client [Axios](https://www.npmjs.com/package/axios) to perform requests to the [Fastly](https://docs.fastly.com/api/) API. [Axios](https://www.npmjs.com/package/axios) supports the native JavaScript [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) API and automatically transforms the data into JSON. Each `fastly-promises` API method returns a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) which represents either the completion or failure of the request.
 
 ## Table of Contents
 
@@ -190,6 +190,11 @@ Each `fastly-promises` API method returns the following response object:
   - [Backend](#backend)
     - [.readBackends(version)](#readBackends)
     - [.updateBackend(version, name, data)](#updateBackend)
+  - [Condition](#condition)
+    - [.readConditions(version)](#readConditions)
+    - [.readCondition(version, name)](#readCondition)
+    - [.createCondition(version, name, data)](#createCondition)
+    - [.updateCondition(version, name, data)](#updateCondition)
 
 <a name="constructor"></a>
 
@@ -650,6 +655,108 @@ instance.updateBackend('34', 'slow-server', { name: 'fast-server' })
 **Param**: version {string} The current version of a service.  
 **Param**: name {string} The name of the backend.  
 **Param**: data {object} The data to be sent as the request body.  
+**Return**: schema {promise} The response object representing the completion or failure.
+
+
+### Condition
+
+<a name="readConditions"></a>
+
+### [.readConditions(version)](https://docs.fastly.com/api/config#condition_b61196c572f473c89863a81cc5912861)
+
+*List all conditions for a particular service and version.*
+
+**Example**:
+
+```javascript
+instance.readConditions('12')
+  .then(res => {
+    console.log(res.data);
+  })
+  .catch(err => {
+    console.log(err.message);
+  });
+```
+
+**Kind**: method  
+**Param**: data {Object} The data to be sent as the request body.
+**Return**: schema {promise} The response object representing the completion or failure.
+
+### [.readCondition(version, name)](https://docs.fastly.com/api/config#condition_149a2f48485ceb335f70504e5269b77e)
+
+*List a single condition for a particular service and version.*
+
+**Example**:
+
+```javascript
+instance.readCondition('12', 'condition name')
+  .then(res => {
+    console.log(res.data);
+  })
+  .catch(err => {
+    console.log(err.message);
+  });
+```
+
+**Kind**: method  
+**Param**: data {Object} The data to be sent as the request body.
+**Return**: schema {promise} The response object representing the completion or failure.
+
+### [.createCondition(version, data)](https://docs.fastly.com/api/config#condition_551199dbec2271195319b675d8659226)
+
+*Create a new condition for a particular service and version.*
+
+**Example**:
+
+```javascript
+const data = {
+  "comment": "",
+  "name": "testcondition",
+  "priority": "10",
+  "statement": "req.url~ \"index.html\"",
+  "type": "REQUEST"
+};
+
+instance.createCondition('12', data)
+  .then(res => {
+    console.log(res.data);
+  })
+  .catch(err => {
+    console.log(err.message);
+  });
+```
+
+**Kind**: method  
+**Param**: data {Object} The data to be sent as the request body.
+**Return**: schema {promise} The response object representing the completion or failure.
+
+
+### [.updateCondition(version, name, data)](https://docs.fastly.com/api/config#condition_01a2c4e4b44943b541e001013b665deb)
+
+*Update an existing condition for a particular service and version.*
+
+**Example**:
+
+```javascript
+const data = {
+  "comment": "",
+  "name": "testcondition",
+  "priority": "10",
+  "statement": "req.url~ \"index.html\"",
+  "type": "REQUEST"
+};
+
+instance.updateCondition('12', 'testcondition', data)
+  .then(res => {
+    console.log(res.data);
+  })
+  .catch(err => {
+    console.log(err.message);
+  });
+```
+
+**Kind**: method  
+**Param**: data {Object} The data to be sent as the request body.
 **Return**: schema {promise} The response object representing the completion or failure.
 
 ## Tests
