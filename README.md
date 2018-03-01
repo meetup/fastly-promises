@@ -193,7 +193,7 @@ Each `fastly-promises` API method returns the following response object:
   - [Condition](#condition)
     - [.readConditions(version)](#readConditions)
     - [.readCondition(version, name)](#readCondition)
-    - [.createCondition(version, name, data)](#createCondition)
+    - [.createCondition(version, data)](#createCondition)
     - [.updateCondition(version, name, data)](#updateCondition)
 
 <a name="constructor"></a>
