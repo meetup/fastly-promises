@@ -11,7 +11,6 @@ class Fastly {
    */
   constructor(token, service_id) {
     this.service_id = service_id;
-    console.log('==============||||||||||||||=======');
     this.request = axios.create({
       baseURL: config.mainEntryPoint,
       timeout: 3000,
